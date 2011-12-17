@@ -85,34 +85,18 @@ describe Terminal do
 
   describe "#total" do
     it "should Scan these items in this order: ABCDABAA; Verify the total price is $32.40" do
-      @terminal.scan("A")
-      @terminal.scan("B")
-      @terminal.scan("C")
-      @terminal.scan("D")
-      @terminal.scan("A")
-      @terminal.scan("B")
-      @terminal.scan("A")
-      @terminal.scan("A")
+      "ABCDABAA".split('').each { |item| @terminal.scan(item) }
       @terminal.cart.size.should eql(8)
       @terminal.total.should eql(32.40)
     end
 
     it "should Scan these items in this order: CCCCCCC; Verify the total price is $7.25" do
-      @terminal.scan("C")
-      @terminal.scan("C")
-      @terminal.scan("C")
-      @terminal.scan("C")
-      @terminal.scan("C")
-      @terminal.scan("C")
-      @terminal.scan("C")
+      "CCCCCCC".split('').each { |item| @terminal.scan(item) }
       @terminal.total.should eql(7.25)
     end
 
     it "should Scan these items in this order: ABCD; Verify the total price is $15.40" do
-      @terminal.scan("A")
-      @terminal.scan("B")
-      @terminal.scan("C")
-      @terminal.scan("D")
+      "ABCD".split('').each { |item| @terminal.scan(item) }
       @terminal.total.should eql(15.40)
     end
   end
