@@ -59,6 +59,13 @@ describe Terminal do
       @terminal.item_list.size.should eql(5)
       @terminal.item_list["Z"].should eql(item)
     end
+
+    it "should not add items that are already in the item list" do
+      @terminal.item_list.size.should eql(4)
+      item = Item.new(:name => "A", :price => 2, :bulk_quantity => 4, :bulk_price => 7)
+      lambda { @terminal.set_pricing(item) }.should raise_error(ArgumentError, "Item already exists")
+      @terminal.item_list.size.should eql(4)
+    end
   end
 
   describe "#scan" do
@@ -71,7 +78,7 @@ describe Terminal do
 
     it "should not scan items that are not on the item list" do
       @terminal.cart.empty?.should eql(true)
-      lambda { @terminal.scan("Q")}.should raise_error(ArgumentError, "Item could not be found")
+      lambda { @terminal.scan("Q") }.should raise_error(ArgumentError, "Item could not be found")
       @terminal.cart.empty?.should eql(true)
     end
   end

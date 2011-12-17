@@ -6,6 +6,7 @@ class Terminal
   end
 
   def set_pricing(item)
+    raise ArgumentError, "Item already exists" if item_list[item.name]
     item_list[item.name] = item
   end
 
