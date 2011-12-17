@@ -10,18 +10,14 @@ class Terminal
   end
 
   def scan(item_name)
-    if item_list[item_name]
-      cart << item_list[item_name] 
-    else
-      raise ArgumentError, "Item could not be found" 
-    end
+    raise ArgumentError, "Item could not be found" unless item_list[item_name]
+    cart << item_list[item_name] 
   end
 
   def total
     total_price = 0
     cart.uniq.each do |item|
-      quantity = cart.count(item)
-      total_price += item.total(quantity)
+      total_price += item.total(cart.count(item))
     end
     total_price
   end
