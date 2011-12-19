@@ -1,3 +1,6 @@
+require "rubygems"
+require "ruby-debug"
+
 class Terminal
   attr_accessor :item_list, :cart
 
@@ -19,6 +22,7 @@ class Terminal
     total_price = 0
     cart.uniq.each do |item|
       total_price += item.total(cart.count(item))
+      cart.delete(item)
     end
     total_price
   end
